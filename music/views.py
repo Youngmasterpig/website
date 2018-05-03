@@ -12,8 +12,8 @@ def details(request, album_id):
     return render(request, 'music/detail.html',{'album': album})
 
 
-def favorite(request, albumn_id):
-    album = get_object_or_404(Album, pk=albumn_id)
+def favorite(request, album_id):
+    album = get_object_or_404(Album, pk=album_id)
     try:
         selected_song = album.song_set.get(pk=request.POST['song'])
     except (KeyError, Song.DoesNotExist):

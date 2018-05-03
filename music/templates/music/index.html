@@ -1,10 +1,14 @@
+
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'music/style.css' %}" />
+
 {% if all_albums %}
     <h3>Here are all my Albums:</h3>
-<ul>
+    <ul>
     {% for album in all_albums %}
         <li><a href="{% url 'music:detail' album.id %}">{{ album.album_title }}</a> </li>
     {% endfor %}
-</ul>
+    </ul>
 {% else %}
-    <h3>You Dont have any albums</h3>
+    <h3>You don't have any albums</h3>
 {% endif %}
