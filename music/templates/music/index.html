@@ -1,14 +1,47 @@
+{% extends 'music/base.html' %}
 
-{% load staticfiles %}
-<link rel="stylesheet" type="text/css" href="{% static 'music/style.css' %}" />
+{% block albums_active %}active{% endblock %}
 
-{% if all_albums %}
-    <h3>Here are all my Albums:</h3>
-    <ul>
-    {% for album in all_albums %}
-        <li><a href="{% url 'music:detail' album.id %}">{{ album.album_title }}</a> </li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <h3>You don't have any albums</h3>
-{% endif %}
+
+
+{% block body %}
+
+    {% if all_albums %}
+        <div class="albums-container container-fluid ">
+            <div class="row">
+                {% for album in all_albums %}
+                    <div class="col-sm-4 col-lg-2">
+                        <div class="thumbnail">
+                            <!-- Album Logo -->
+                            <a href="{% url 'music:detail' album.id %}">
+                                <img src="{{ album.album_logo.url }}" class="img-responsive"><br/>
+                            </a>
+                            <div class="caption">
+                                <h2>{{album.album_title}}</h2>
+                                <h4>{{album.artist}}</h4>
+
+                                <!-- Details -->
+                                <a href="{% url 'music:detail' album.id %}"><button type="button" class="btn btn-success btn-sm" style="margin-top:5px;" >View Details</button></a>
+                                <!-- Delete -->
+                                <form method="post" action="{% url 'music:album-delete' album.id %}" style="display:inline">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-outline-secondary btn-sm" style="margin-top:5px;" >
+                                        <span class="fa fa-trash" aria-hidden="true">D</span>
+                                    </button>
+                                </form>
+                                <a href="{% url 'music:album-update' album.id %}">
+                                    <button type="button" class="btn btn-outline-secondary btn-sm" style="margin-top:5px;" >
+                                        <span class="fa fa-pencil" aria-hidden="true">E</span>
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div><br/><br/><br/><br/>
+        </div>
+    {% else %}
+        <h2>You do not have any albums to display</h2>
+    {% endif %}
+
+{% endblock %}

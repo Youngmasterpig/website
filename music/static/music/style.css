@@ -1,4 +1,12 @@
 body{
-    background: url("images/BACKROUND.png");
-  background-size: cover;
+    background: url("images/white.png");
+    background-size: cover;
+}
+
+.navbar{
+    border-radius: 0;
+}
+
+.navbar-brand{
+    font-family: 'Satisfy', cursive;
 }
